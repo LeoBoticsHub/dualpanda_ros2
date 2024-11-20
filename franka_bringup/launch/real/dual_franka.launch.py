@@ -75,15 +75,19 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
             robot_ip_1_parameter_name,
+            default_value='192.168.0.201',
             description='Hostname or IP address of robot 1.'),
         DeclareLaunchArgument(
             robot_ip_2_parameter_name,
+            default_value='192.168.0.202',
             description='Hostname or IP address of robot 2.'),
         DeclareLaunchArgument(
             arm_id_1_parameter_name,
+            default_value='left',
             description='Unique arm ID of robot 1.'),
         DeclareLaunchArgument(
             arm_id_2_parameter_name,
+            default_value='right',
             description='Unique arm ID of robot 2.'),
         DeclareLaunchArgument(
             use_rviz_parameter_name,
@@ -100,12 +104,12 @@ def generate_launch_description():
                 use_fake_hardware_parameter_name)),
         DeclareLaunchArgument(
             load_gripper_1_parameter_name,
-            default_value='true',
+            default_value='false',
             description='Use Franka Gripper as an end-effector, otherwise, robot 1 is loaded '
                         'without an end-effector.'),
         DeclareLaunchArgument(
             load_gripper_2_parameter_name,
-            default_value='true',
+            default_value='false',
             description='Use Franka Gripper as an end-effector, otherwise, robot 2 is loaded '
                         'without an end-effector.'),
         Node(
@@ -154,30 +158,30 @@ def generate_launch_description():
             output='screen',
             condition=UnlessCondition(use_fake_hardware),
         ),
-        Node(
-            package='controller_manager',
-            executable='spawner',
-            arguments=['left_robot_state_broadcaster'],
-            output='screen',
-        ),
-        Node(
-            package='controller_manager',
-            executable='spawner',
-            arguments=['right_robot_state_broadcaster'],
-            output='screen',
-        ),
-        Node(
-            package='controller_manager',
-            executable='spawner',
-            arguments=['left_robot_model_broadcaster'],
-            output='screen',
-        ),
-        Node(
-            package='controller_manager',
-            executable='spawner',
-            arguments=['right_robot_model_broadcaster'],
-            output='screen',
-        ),
+        # Node(
+        #     package='controller_manager',
+        #     executable='spawner',
+        #     arguments=['left_robot_state_broadcaster'],
+        #     output='screen',
+        # ),
+        # Node(
+        #     package='controller_manager',
+        #     executable='spawner',
+        #     arguments=['right_robot_state_broadcaster'],
+        #     output='screen',
+        # ),
+        # Node(
+        #     package='controller_manager',
+        #     executable='spawner',
+        #     arguments=['left_robot_model_broadcaster'],
+        #     output='screen',
+        # ),
+        # Node(
+        #     package='controller_manager',
+        #     executable='spawner',
+        #     arguments=['right_robot_model_broadcaster'],
+        #     output='screen',
+        # ),
         # IncludeLaunchDescription(
         #     PythonLaunchDescriptionSource([PathJoinSubstitution(
         #         [FindPackageShare('franka_gripper'), 'launch', 'gripper.launch.py'])]),

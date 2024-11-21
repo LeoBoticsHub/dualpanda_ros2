@@ -56,20 +56,26 @@ controller_interface::return_type DualJointVelocityExampleController::update(
 //   updateJointStates();
   init_time_ = init_time_ + period;
   double omega = 0.1 * std::sin(init_time_.seconds());
+  // double omega = 0.1 * std::sin(init_time_.seconds()/2); // motion twice slower to avoidflex when stopping
   size_t k = 0;
-  for(auto& arm_container_pair : arms_){
-    auto &arm = arm_container_pair.second;
 
-    for (int i = 0; i < num_joints; i++) {
-      if(i > 2 && i < 7){
-        command_interfaces_[k].set_value(omega);
-      }
-      else{
-        command_interfaces_[k].set_value(0);
-      }
-      k++; // BIG assumption: That the command interfaces are always in the same order
-    }
-  }
+  command_interfaces_[3].set_value(omega);
+
+  command_interfaces_[10].set_value(omega/2);
+
+  // for(auto& arm_container_pair : arms_){
+  //   auto &arm = arm_container_pair.second;
+
+  //   for (int i = 0; i < num_joints; i++) {
+  //     if(i > 2 && i < 7){
+  //       command_interfaces_[k].set_value(omega);
+  //     }
+  //     else{
+  //       command_interfaces_[k].set_value(0);
+  //     }
+  //     k++; // BIG assumption: That the command interfaces are always in the same order
+  //   }
+  // }
   return controller_interface::return_type::OK;
 }
 

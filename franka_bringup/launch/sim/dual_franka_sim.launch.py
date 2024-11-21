@@ -84,11 +84,11 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             load_gripper_1_parameter_name,
-            default_value='true',
+            default_value='false',
             description='Load robot 1 with franka gripper.'),
         DeclareLaunchArgument(
             load_gripper_2_parameter_name,
-            default_value='true',
+            default_value='false',
             description='Load robot 2 with franka gripper.'),
         DeclareLaunchArgument(
             scene_xml_parameter_name,
@@ -120,6 +120,8 @@ def generate_launch_description():
         Node(
             package='franka_control2',
             executable='franka_control2_node',
+            # package='controller_manager',
+            # executable='ros2_control_node',
             parameters=[{'robot_description': robot_description}, franka_controllers],
             remappings=[('joint_states', 'franka/joint_states')],
             output={
@@ -151,6 +153,7 @@ def generate_launch_description():
              name='rviz2',
              arguments=['--display-config', rviz_file],
              condition=IfCondition(use_rviz)
-             )
+             ),
+
 
     ])
